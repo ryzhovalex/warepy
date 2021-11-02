@@ -1,6 +1,4 @@
-![puft](media/puft.png)
-
-Puft
+Warepy
 ===
 
 My toolkit for Python.

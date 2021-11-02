@@ -2,14 +2,14 @@ from distutils.core import setup
 
 
 setup(
-    name="puft",
-    packages=["puft"],
+    name="warepy",
+    packages=["warepy"],
     version="0.1.0",
     license="MIT",
     description="My toolkit for Python.",
     author = "Alexander Ryzhov",
     author_email = "thed4rkof@gmail.com",
-    url = "https://github.com/ryzhovalex/puft",
+    url = "https://github.com/ryzhovalex/warepy",
     download_url = "",
     keywords = ["toolkit", "python-core"],
     install_requires=[
