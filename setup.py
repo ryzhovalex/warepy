@@ -2,23 +2,19 @@ from distutils.core import setup
 
 
 setup(
-    name="omen-web",
-    packages=["omen"],
-    version="0.1.5",
+    name="puft",
+    packages=["puft"],
+    version="0.1.0",
     license="MIT",
-    description="Upgraded layer over Flask.",
+    description="My toolkit for Python.",
     author = "Alexander Ryzhov",
     author_email = "thed4rkof@gmail.com",
-    url = "https://github.com/ryzhovalex/omen",
-    download_url = "https://github.com/ryzhovalex/omen/archive/refs/tags/0.1.5.tar.gz",
-    keywords = ["flask+", "web-framework", "flask", "flask-template"],
+    url = "https://github.com/ryzhovalex/puft",
+    download_url = "",
+    keywords = ["toolkit", "python-core"],
     install_requires=[
-        "flask",
-        "requests",
-        "turbo-flask",
-        "flask-migrate",
-        "loguru",
-        "pytest",
+        "yaml",
+        "loguru"
     ],
     classifiers=[
         "Development Status :: 1 - Planning",

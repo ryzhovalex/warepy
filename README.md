@@ -1,6 +1,6 @@
-Omen
+![puft](media/puft.png)
+
+Puft
 ===
 
-Layer over Flask upgraded by MVC, SQLAlchemy, Migrations and other cool guys.
-
----
+My toolkit for Python.
