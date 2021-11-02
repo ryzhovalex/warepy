@@ -4,13 +4,13 @@ from distutils.core import setup
 setup(
     name="warepy",
     packages=["warepy"],
-    version="0.1.0",
+    version="0.2.0",
     license="MIT",
     description="My toolkit for Python.",
     author = "Alexander Ryzhov",
     author_email = "thed4rkof@gmail.com",
     url = "https://github.com/ryzhovalex/warepy",
-    download_url = "",
+    download_url = "https://github.com/ryzhovalex/warepy/archive/refs/tags/0.2.0.tar.gz",
     keywords = ["toolkit", "python-core"],
     install_requires=[
         "yaml",
