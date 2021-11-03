@@ -13,7 +13,7 @@ setup(
     download_url = "https://github.com/ryzhovalex/warepy/archive/refs/tags/0.2.1.tar.gz",
     keywords = ["toolkit", "python-core"],
     install_requires=[
-        "yaml",
+        "pyyaml",
         "loguru"
     ],
     classifiers=[
