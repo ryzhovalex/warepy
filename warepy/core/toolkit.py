@@ -45,7 +45,7 @@ def load_json_from_environ(environ_key: str) -> Dict[str, Any]:
 
 
 @logger.catch
-def load_yaml_from_path(file_path: str, loader: YamlLoader = "safe") -> Dict[str, Any]:
+def load_yaml(file_path: str, loader: YamlLoader = "safe") -> Dict[str, Any]:
     """Load yaml from file on given path and return Python dict.
     
     Args:
