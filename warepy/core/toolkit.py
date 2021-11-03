@@ -8,6 +8,10 @@ import yaml
 from .logger import logger
 
 
+# Yaml loaders types according to https://github.com/yaml/pyyaml/wiki/PyYAML-yaml.load(input)-Deprecation.
+YamlLoader = Literal["base", "safe", "full", "unsafe"]
+
+
 @logger.catch
 def join_paths(*args) -> str:
     """Collect given paths and return summary joined absolute path.
@@ -41,10 +45,32 @@ def load_json_from_environ(environ_key: str) -> Dict[str, Any]:
 
 
 @logger.catch
-def load_yaml_from_path(file_path: str) -> Dict[str, Any]:
-    """Load yaml from file on given path and return Python dict."""
+def load_yaml_from_path(file_path: str, loader: YamlLoader = "safe") -> Dict[str, Any]:
+    """Load yaml from file on given path and return Python dict.
+    
+    Args:
+        file_path: Path of yaml file to load from.
+        loader: Loader for yaml according to [load deprecation](https://github.com/yaml/pyyaml/wiki/PyYAML-yaml.load(input)-Deprecation).
+        
+    Raise:
+        ValueError: If given loader is not in yaml loaders list.
+    """
+    # Define yaml loader according to given argument.
+    if loader == "safe":
+        yaml_loader = yaml.SafeLoader
+    elif loader == "full":
+        yaml_loader = yaml.FullLoader
+    elif loader == "base":
+        yaml_loader = yaml.BaseLoader
+    elif loader == "unsafe":
+        yaml_loader = yaml.UnsafeLoader
+    else:
+        message = format_message("Couldn't recognize given loader {}.", loader)
+        raise ValueError(message)
+
+    # Open file by given path and load yaml.
     with open(file_path, "r") as file:
-        return yaml.load(file)
+        return yaml.load(file, Loader=yaml_loader)
 
 
 @logger.catch
