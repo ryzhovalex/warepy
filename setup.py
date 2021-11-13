@@ -10,7 +10,7 @@ setup(
     author = "Alexander Ryzhov",
     author_email = "thed4rkof@gmail.com",
     url = "https://github.com/ryzhovalex/warepy",
-    download_url = "https://github.com/ryzhovalex/warepy/archive/refs/tags/0.2.1.tar.gz",
+    download_url = "https://github.com/ryzhovalex/warepy/archive/refs/tags/0.3.0.tar.gz",
     keywords = ["toolkit", "python-core"],
     install_requires=[
         "pyyaml",
