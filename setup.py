@@ -4,7 +4,7 @@ from distutils.core import setup
 setup(
     name="warepy",
     packages=["warepy"],
-    version="0.2.1",
+    version="0.3.0",
     license="MIT",
     description="My toolkit for Python.",
     author = "Alexander Ryzhov",
