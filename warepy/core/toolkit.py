@@ -53,7 +53,7 @@ def save_yaml(data: dict, file_path: str) -> None:
         file_path: Path of yaml file to load from.
     """
     with open(file_path, "w") as file:
-        yaml.dump(data=data, stream=file)
+        yaml.dump(data=data, stream=file, allow_unicode=True)
 
 
 @logger.catch
