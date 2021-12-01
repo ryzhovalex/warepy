@@ -91,7 +91,7 @@ def format_message(text: str, *args, no_arg_phrase: str = "None", enclosing_char
     
     Args:
         text: Main message text with formatting brackets `{}`.
-        args: Positional args ordered for according formatting brackets.
+        args: Positional args ordered for according formatting brackets. Given lists will be also unpacked.
         no_arg_phrase: Text to insert to position of arg with `None` value instead it. Defaults to `"None"`.
         enclosing_char: 
             Char to enclose every given argument in text from both sides for differentiation. 
@@ -104,13 +104,14 @@ def format_message(text: str, *args, no_arg_phrase: str = "None", enclosing_char
     vars_to_format = []
     for arg in args:
         if isinstance(arg, list):
-            # Unpack listed vars.
+            if not bool(arg): # Empty mapping, no need to unpack.
+                vars_to_format.append(no_arg_phrase)
             for _arg in arg:
-                if _arg is None:
+                if _arg is None or (not bool(_arg) and not isinstance(_arg, int)):
                     vars_to_format.append(no_arg_phrase)
                 else:
                     vars_to_format.append(_arg)
-        elif arg is None:
+        elif _arg is None or (not bool(_arg) and not isinstance(_arg, int)):
             vars_to_format.append(no_arg_phrase)
         else:
             vars_to_format.append(arg)
@@ -153,7 +154,8 @@ def normalize_db_uri(cpas_module_path: str, raw_db_uri: str) -> str:
         raise ValueError(error_message)
 
 
-@logger.catch
+# Don't use `@logger.catch` at function below, since error should be propagated to caller function and catched there, 
+# because errors occured here carries more exceptional sence.
 def get_or_error(object_to_return: Any) -> Any:
     """Return given object after checking.
     
