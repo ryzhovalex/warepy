@@ -111,7 +111,7 @@ def format_message(text: str, *args, no_arg_phrase: str = "None", enclosing_char
                     vars_to_format.append(no_arg_phrase)
                 else:
                     vars_to_format.append(_arg)
-        elif _arg is None or (not bool(_arg) and not isinstance(_arg, int)):
+        elif arg is None or (not bool(arg) and not isinstance(arg, int)):
             vars_to_format.append(no_arg_phrase)
         else:
             vars_to_format.append(arg)
