@@ -86,22 +86,46 @@ def load_yaml(file_path: str, *, loader: YamlLoader = "safe") -> Dict[str, Any]:
 
 
 @logger.catch
-def format_message(text: str, vars: Union[Any, List[Any]] = None, no_arg_phrase: str = "None") -> str:
-    """Construct message from given text with inserting given vars to it and return resulting message.
-    Use 'no_arg_phrase' as phrase to insert instead of empty (Python's bool checking == False) given argument.
-    Helpful when you want to format error message with variables with unknown values."""
-    # Pack variable to list if given only one.
-    if not isinstance(vars, list):
-        vars = [vars]
-        
-    vars_for_format = []
-    for var in vars:
-        # Check var and append it to vars for formatting if it's not empty.
-        if bool(var):
-            vars_for_format.append(var)
+def format_message(text: str, *args, no_arg_phrase: str = "None", enclosing_char: str = "`") -> str:
+    """Construct message from given text with inserting given args to it and return resulting message.
+    
+    Args:
+        text: Main message text with formatting brackets `{}`.
+        args: Positional args ordered for according formatting brackets.
+        no_arg_phrase: Text to insert to position of arg with `None` value instead it. Defaults to `"None"`.
+        enclosing_char: 
+            Char to enclose every given argument in text from both sides for differentiation. 
+            If set to `None`, don't perform enclosing. 
+            Defaults to single backtick.
+
+    Raise:
+        ValueError: If given text has different number of braces than amount of given arguments.
+    """
+    vars_to_format = []
+    for arg in args:
+        if isinstance(arg, list):
+            # Unpack listed vars.
+            for _arg in arg:
+                if _arg is None:
+                    vars_to_format.append(no_arg_phrase)
+                else:
+                    vars_to_format.append(_arg)
+        elif arg is None:
+            vars_to_format.append(no_arg_phrase)
         else:
-            vars_for_format.append(no_arg_phrase)
-    message = text.format(*vars_for_format)
+            vars_to_format.append(arg)
+    
+    # Check if text with correct number of braces given.
+    if text.count("{}") != len(vars_to_format):
+        raise ValueError(f"Text {text} has different number of braces than amount of given arguments: {vars_to_format}.")
+
+    # Apply enclosing char to every var.
+    if enclosing_char is not None:
+        enclosed_vars_to_format = []
+        for var in vars_to_format:
+            enclosed_vars_to_format.append(str(enclosing_char) + str(var) + str(enclosing_char))
+
+    message = text.format(*enclosed_vars_to_format)
     return message
 
 
