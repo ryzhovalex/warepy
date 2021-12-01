@@ -117,7 +117,7 @@ def format_message(text: str, *args, no_arg_phrase: str = "None", enclosing_char
     
     # Check if text with correct number of braces given.
     if text.count("{}") != len(vars_to_format):
-        raise ValueError(f"Text {text} has different number of braces than amount of given arguments: {vars_to_format}.")
+        raise ValueError(f"Text `{text}` has different number of braces than amount of given arguments: `{vars_to_format}`.")
 
     # Apply enclosing char to every var.
     if enclosing_char is not None:
