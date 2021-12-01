@@ -45,12 +45,12 @@ def load_json_from_environ(environ_key: str) -> Dict[str, Any]:
 
 
 @logger.catch
-def save_yaml(data: dict, file_path: str) -> None:
+def save_yaml(file_path: str, data: dict) -> None:
     """Save given dict to yaml to file on given path.
     
     Args:
-        data: Dictionary to be converted and saved.
         file_path: Path of yaml file to load from.
+        data: Dictionary to be converted and saved.
     """
     with open(file_path, "w") as file:
         yaml.dump(data=data, stream=file, allow_unicode=True)
