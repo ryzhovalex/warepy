@@ -1,23 +1,23 @@
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 
 setup(
     name="warepy",
-    packages=["warepy"],
-    version="0.3.0",
+    packages=find_packages(),
+    include_package_data=True,
+    version="0.4.0.dev0",
     license="MIT",
     description="My toolkit for Python.",
     author = "Alexander Ryzhov",
     author_email = "thed4rkof@gmail.com",
     url = "https://github.com/ryzhovalex/warepy",
-    download_url = "https://github.com/ryzhovalex/warepy/archive/refs/tags/0.3.0.tar.gz",
     keywords = ["toolkit", "python-core"],
     install_requires=[
         "pyyaml",
         "loguru"
     ],
     classifiers=[
-        "Development Status :: 1 - Planning",
+        "Development Status :: 2 - Pre-Alpha",
 
         "Intended Audience :: Developers",
         "Topic :: Software Development :: Build Tools",
