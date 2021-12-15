@@ -8,10 +8,10 @@ setup(
     version="0.4.0.dev0",
     license="MIT",
     description="My toolkit for Python.",
-    author = "Alexander Ryzhov",
-    author_email = "thed4rkof@gmail.com",
-    url = "https://github.com/ryzhovalex/warepy",
-    keywords = ["toolkit", "python-core"],
+    author="Alexander Ryzhov",
+    author_email="thed4rkof@gmail.com",
+    url="https://github.com/ryzhovalex/warepy",
+    keywords=["toolkit", "python-core"],
     install_requires=[
         "pyyaml",
         "loguru"
