@@ -5,7 +5,7 @@ setup(
     name="warepy",
     packages=find_packages(),
     include_package_data=True,
-    version="0.4.0.dev0",
+    version="0.4.0",
     license="MIT",
     description="My toolkit for Python.",
     author="Alexander Ryzhov",
