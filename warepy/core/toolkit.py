@@ -90,16 +90,20 @@ def format_message(text: str, *args, no_arg_phrase: str = "None", enclosing_char
     """Construct message from given text with inserting given args to it and return resulting message.
     
     Args:
-        text: Main message text with formatting brackets `{}`.
-        args: Positional args ordered for according formatting brackets. Given lists will be also unpacked.
-        no_arg_phrase: Text to insert to position of arg with `None` value instead it. Defaults to `"None"`.
+        text: 
+            Main message text with formatting brackets `{}`.
+        args: 
+            Positional args ordered for according formatting brackets. Given lists will be also unpacked.
+        no_arg_phrase: 
+            Text to insert to position of arg with `None` value instead it. Defaults to `"None"`.
         enclosing_char: 
             Char to enclose every given argument in text from both sides for differentiation. 
             If set to `None`, don't perform enclosing. 
             Defaults to single backtick.
 
     Raise:
-        ValueError: If given text has different number of braces than amount of given arguments.
+        ValueError: 
+            If given text has different number of braces than amount of given arguments.
     """
     vars_to_format = []
     for arg in args:
