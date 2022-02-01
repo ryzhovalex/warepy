@@ -1,7 +1,7 @@
 """Module with various tools."""
 import os
 import json
-from typing import Any, List, Dict, Literal, Callable, Union, Tuple
+from typing import Any, List, Dict, Literal, Callable, Union, Tuple, Type
 
 import yaml
 
@@ -175,7 +175,9 @@ def get_or_error(object_to_return: Any) -> Any:
     return object_to_return
 
 
-def get_literal_args(literal: Literal) -> Tuple[Any]:
+# Construction `Type[Literal["", 0, True, b""]]` as a type hint required since PyRight gives uncompatible error on function calling.
+# This contstruction contain all possible literals since it should be compared to given literal.
+def get_literal_args(literal: Type[Literal["", 0, True, b"", None]]) -> Tuple[Any]:
     """Return args of given literal.
     
     Function mainly created to avoid PyRight `Literal.__args__` access error to handle it only here."""
