@@ -9,7 +9,7 @@ from loguru import logger as loguru
 from .singleton import Singleton
 
 
-class logger(metaclass=Singleton):
+class logger(Singleton):
     """Logger tool responsible of writing all actions to logs.
 
     Simply said - it is a extra layer over `loguru.logger` for keeping one logger through all program.
@@ -56,11 +56,13 @@ class logger(metaclass=Singleton):
                     # Just reraise error without logging.
                     raise error
                 else:
-                    node_info = inspect.getmodule(func).__name__ + "." + func.__name__
-                    with cls.native_logger.contextualize(node=node_info):
-                        # Log and reraise error with new sign node argument.
-                        logger.error(f"{error.__class__.__name__}: {error}")
-                        raise error.__class__(node_info, error.args[0])
+                    inspect_module = inspect.getmodule(func)
+                    if inspect_module:
+                        node_info = inspect_module.__name__ + "." + func.__name__
+                        with cls.native_logger.contextualize(node=node_info):
+                            # Log and reraise error with new sign node argument.
+                            logger.error(f"{error.__class__.__name__}: {error}")
+                            raise error.__class__(node_info, error.args[0])
             else:
                 return output
         return inner
