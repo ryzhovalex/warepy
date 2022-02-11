@@ -173,12 +173,3 @@ def get_or_error(object_to_return: Any) -> Any:
         error_message = format_message("Requested object is empty mapping: {}.", object_to_return)
         raise TypeError(error_message)
     return object_to_return
-
-
-# Construction `Type[Literal["", 0, True, b""]]` as a type hint required since PyRight gives uncompatible error on function calling.
-# This contstruction contain all possible literals since it should be compared to given literal.
-def get_literal_args(literal: Type[Literal["", 0, True, b"", None]]) -> Tuple[Any]:
-    """Return args of given literal.
-    
-    Function mainly created to avoid PyRight `Literal.__args__` access error to handle it only here."""
-    return literal.__args__  # type: ignore

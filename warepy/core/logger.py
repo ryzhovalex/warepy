@@ -104,4 +104,4 @@ class logger(Singleton):
             compression="zip", 
             rotation=rotation, 
             serialize=serialize
-        ) 
+        )  # type: ignore # TODO: No overloads for __new__ match the provided arguments??
