@@ -1,7 +1,9 @@
 """Module with various tools."""
 import os
 import json
+from enum import Enum
 from typing import Any, List, Dict, Literal, Callable, Union, Tuple, Type
+from functools import wraps
 
 import yaml
 
@@ -173,3 +175,41 @@ def get_or_error(object_to_return: Any) -> Any:
         error_message = format_message("Requested object is empty mapping: {}.", object_to_return)
         raise TypeError(error_message)
     return object_to_return
+
+
+def get_enum_values(enum_class: type[Enum]) -> list:
+    """Process enumeration and return list of its members.""" 
+    return [x.value for x in enum_class] 
+
+
+def extend_enum(*inherited_enums: type[Enum]):
+    """Join multiple enums into one.
+
+    Modified version from: https://stackoverflow.com/a/64045773/14748231.
+    """
+    joined_members = {}  # All members from all enums which injected in result enum.
+
+    def _add_item_if_not_exist(item) -> None:
+        # Add given item to joined_members dict.
+        # If item.name is already existing key, raise ValueError.
+        if item.name not in joined_members:
+            joined_members[item.name] = item.value
+        else:
+            raise ValueError(f"{item.name} key already in joined_members")
+
+    def wrapper(applied_enum: type[Enum]):
+        @wraps(applied_enum)
+        def inner():
+            # Add all items from inherited enums.
+            for inherited_enum in inherited_enums:
+                for item in inherited_enum:
+                    _add_item_if_not_exist(item)
+            # Add all items from applied enum.
+            for item in applied_enum:
+                _add_item_if_not_exist(item)
+            # Finally, return result Enum with collected members injected.
+            ResEnum = Enum(applied_enum.__name__, joined_members)
+            ResEnum.__doc__ = applied_enum.__doc__
+            return ResEnum
+        return inner()
+    return wrapper
