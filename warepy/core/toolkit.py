@@ -1,6 +1,7 @@
 """Module with various tools."""
 import os
 import json
+from types import UnionType
 from enum import Enum
 from typing import Any, List, Dict, Literal, Callable, Union, Tuple, Type
 from functools import wraps
@@ -177,13 +178,36 @@ def get_or_error(object_to_return: Any) -> Any:
     return object_to_return
 
 
-def get_enum_values(enum_class: type[Enum]) -> list:
-    """Process enumeration and return list of its members.""" 
-    return [x.value for x in enum_class] 
+def get_enum_values(*enum_classes: type[Enum]) -> list:
+    """Process given enumeration classes and return list of its members summarized.""" 
+    sum_members = []
+    for enum_class in enum_classes:
+        sum_members.append([x.value for x in enum_class])
+    return sum_members
+
+
+def get_union_enum_values(union: UnionType) -> list:
+    """Process given union typehint and return list of members of all containes enums.
+
+    Primarily used for creating lists of values out of unions of enums.
+    
+    Raise:
+        TypeError:
+            Given union consist non-Enum type.""" 
+    union_members = union.__args__
+    res_members = [] 
+
+    for union_member in union_members:
+        if type(union_member) == type(Enum):
+            res_members.append(get_enum_values(union_member))
+        else:
+            raise TypeError(format_message("Given union {} consist non-Enum type.", union))
+    return res_members
 
 
 def extend_enum(*inherited_enums: type[Enum]):
-    """Join multiple enums into one.
+    """EXPERIMENTAL
+    Join multiple enums into one.
 
     Modified version from: https://stackoverflow.com/a/64045773/14748231.
     """
