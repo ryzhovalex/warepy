@@ -182,12 +182,12 @@ def get_enum_values(*enum_classes: type[Enum]) -> list:
     """Process given enumeration classes and return list of its members summarized.""" 
     sum_members = []
     for enum_class in enum_classes:
-        sum_members.append([x.value for x in enum_class])
+        sum_members += [x.value for x in enum_class]
     return sum_members
 
 
 def get_union_enum_values(union: UnionType) -> list:
-    """Process given union typehint and return list of members of all containes enums.
+    """Process given union typehint and return list of members of all containing enums.
 
     Primarily used for creating lists of values out of unions of enums.
     
@@ -199,7 +199,7 @@ def get_union_enum_values(union: UnionType) -> list:
 
     for union_member in union_members:
         if type(union_member) == type(Enum):
-            res_members.append(get_enum_values(union_member))
+            res_members += get_enum_values(union_member)
         else:
             raise TypeError(format_message("Given union {} consist non-Enum type.", union))
     return res_members
