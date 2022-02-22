@@ -3,7 +3,7 @@ import os
 import json
 from types import UnionType
 from enum import Enum
-from typing import Any, List, Dict, Literal, Callable, Union, Tuple, Type
+from typing import Any, List, Dict, Literal, Callable, TypeVar, Union, Tuple, Type
 from functools import wraps
 
 import yaml
@@ -237,3 +237,15 @@ def extend_enum(*inherited_enums: type[Enum]):
             return ResEnum
         return inner()
     return wrapper
+
+AnyEnum = TypeVar("AnyEnum", bound=Enum)
+def match_enum_containing_value(value: Any, *enums: type[AnyEnum]) -> type[AnyEnum]:
+    """Traverse through list of given enums and return first enum containing given value.
+    
+    Raise:
+        ValueError:
+            Given enums don't contain given value."""
+    for enum in enums:
+        if value in get_enum_values(enum):
+            return enum
+    raise ValueError(format_message("Given enums don't contain given value {}.", value))
