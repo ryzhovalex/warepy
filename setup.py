@@ -1,11 +1,13 @@
 from setuptools import setup, find_packages
 
+from .warepy import __version__ as version
+
 
 setup(
     name="warepy",
     packages=find_packages(),
     include_package_data=True,
-    version="0.4.0",
+    version=version,
     license="MIT",
     description="My toolkit for Python.",
     author="Alexander Ryzhov",

@@ -6,3 +6,6 @@ from .src import (
     normalize_db_uri, get_or_error, get_enum_values, extend_enum,
     get_union_enum_values, match_enum_containing_value
 )
+
+
+__version__ = "0.4.0"
