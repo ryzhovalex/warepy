@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-from .warepy import __version__ as version
+from warepy import __version__ as version
 
 
 setup(
