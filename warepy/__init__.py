@@ -13,7 +13,7 @@ from .noconflict import makecls
 from .singleton import Singleton
 
 
-__version__ = "0.4.0"
+__version__ = "0.5.0"
 
 # Yaml loaders types according to https://github.com/yaml/pyyaml/wiki/PyYAML-yaml.load(input)-Deprecation.
 YamlLoader = Literal["base", "safe", "full", "unsafe"]
