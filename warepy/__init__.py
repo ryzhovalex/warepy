@@ -256,7 +256,7 @@ def match_enum_containing_value(value: Any, *enums: type[AnyEnum]) -> type[AnyEn
     raise ValueError(format_message("Given enums don't contain given value {}.", value))
 
 
-def snake_camel_case(camel_name: str):
+def snakefy(camel_name: str):
     """Convert given camel-case name to snake case."""
     words = []
 
