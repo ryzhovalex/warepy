@@ -64,12 +64,16 @@ class log(Singleton):
                             # reraise=True required since loguru should properly logger error, but only where it
                             # originally raised (not in any other place in chain), and then reraise it to push it
                             # up through the chain to head_catch.
-                            @loguru.catch(reraise=True)
-                            def raiser():
-                                # Log and reraise error with new sign node argument.
-                                log.error(f"{error.__class__.__name__}: {error}")
-                                raise error.__class__(node_info, error.args[0])
-                            raiser()
+                            # @loguru.catch(reraise=True)
+                            # def raiser():
+                            #     # Log and reraise error with new sign node argument.
+                            #     log.error(f"{error.__class__.__name__}: {error}")
+                            #     raise error.__class__(node_info, error.args[0])
+                            # raiser()
+                            # Log and reraise error with new sign node argument.
+                            log.error(f"{error.__class__.__name__}: {error}")
+                            raise error.__class__(node_info, error.args[0])
+
             else:
                 return output
         return inner
