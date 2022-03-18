@@ -8,7 +8,7 @@ from functools import wraps
 
 import yaml
 
-from .logger import logger
+from .logger import log
 from .noconflict import makecls
 from .singleton import Singleton
 

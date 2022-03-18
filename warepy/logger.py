@@ -9,7 +9,7 @@ from loguru import logger as loguru
 from .singleton import Singleton
 
 
-class logger(Singleton):
+class log(Singleton):
     """Logger tool responsible of writing all actions to logs.
 
     Simply said - it is a extra layer over `loguru.logger` for keeping one logger through all program.
