@@ -32,7 +32,7 @@ class log(Singleton):
     critical = native_log.critical
 
     # Head catch decorator for final level of program with calling exit.
-    head_catch = native_log.catch(onerror=lambda _: sys.exit(1))
+    head_catch = native_log.catch(onerror=lambda _: print("WOW"))
 
     # Original catch decorator for feeling free at args setting.
     origin_catch = native_log.catch
@@ -60,9 +60,16 @@ class log(Singleton):
                     if inspect_module:
                         node_info = inspect_module.__name__ + "." + func.__name__
                         with cls.native_log.contextualize(node=node_info):
-                            # Log and reraise error with new sign node argument.
-                            log.error(f"{error.__class__.__name__}: {error}")
-                            raise error.__class__(node_info, error.args[0])
+                            # TODO: Calibrate concept of using proper loguru catch functionality on error.
+                            # reraise=True required since loguru should properly logger error, but only where it
+                            # originally raised (not in any other place in chain), and then reraise it to push it
+                            # up through the chain to head_catch.
+                            @loguru.catch(reraise=True)
+                            def raiser():
+                                # Log and reraise error with new sign node argument.
+                                log.error(f"{error.__class__.__name__}: {error}")
+                                raise error.__class__(node_info, error.args[0])
+                            raiser()
             else:
                 return output
         return inner
