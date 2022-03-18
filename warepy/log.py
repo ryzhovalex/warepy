@@ -10,35 +10,35 @@ from .singleton import Singleton
 
 
 class log(Singleton):
-    """Logger tool responsible of writing all actions to logs.
+    """log tool responsible of writing all actions to logs.
 
-    Simply said - it is a extra layer over `loguru.logger` for keeping one logger through all program.
+    Simply said - it is a extra layer over `loguru.log` for keeping one log through all program.
 
     Usage:
     ```
-        from path.to.logger import logger
-        logger(*your_args, **your_kwargs)
-        logger.debug("hello!")
+        from path.to.log import log
+        log(*your_args, **your_kwargs)
+        log.debug("hello!")
     ```
     """
 
-    native_logger = loguru  # loguru.logger itself
+    native_log = loguru  # loguru.log itself
 
     # Initialize class function variables.
-    debug = native_logger.debug
-    info = native_logger.info
-    warning = native_logger.warning
-    error = native_logger.error
-    critical = native_logger.critical
+    debug = native_log.debug
+    info = native_log.info
+    warning = native_log.warning
+    error = native_log.error
+    critical = native_log.critical
 
     # Head catch decorator for final level of program with calling exit.
-    head_catch = native_logger.catch(onerror=lambda _: sys.exit(1))
+    head_catch = native_log.catch(onerror=lambda _: sys.exit(1))
 
     # Original catch decorator for feeling free at args setting.
-    origin_catch = native_logger.catch
+    origin_catch = native_log.catch
 
     def __init__(self, *args, **kwargs) -> None:
-        logger.create_logger(*args, **kwargs)
+        log.create_logger(*args, **kwargs)
 
     @classmethod
     def catch(cls, func):
@@ -59,9 +59,9 @@ class log(Singleton):
                     inspect_module = inspect.getmodule(func)
                     if inspect_module:
                         node_info = inspect_module.__name__ + "." + func.__name__
-                        with cls.native_logger.contextualize(node=node_info):
+                        with cls.native_log.contextualize(node=node_info):
                             # Log and reraise error with new sign node argument.
-                            logger.error(f"{error.__class__.__name__}: {error}")
+                            log.error(f"{error.__class__.__name__}: {error}")
                             raise error.__class__(node_info, error.args[0])
             else:
                 return output
@@ -69,18 +69,18 @@ class log(Singleton):
 
     @classmethod
     def create_logger(cls, *args, **kwargs) -> int:
-        return cls.native_logger.add(*args, **kwargs)
+        return cls.native_log.add(*args, **kwargs)
 
     @classmethod
     def remove_logger(cls, id: int) -> None:
-        cls.native_logger.remove(id)
+        cls.native_log.remove(id)
 
     @classmethod
     def get_native_logger(cls):
-        return cls.native_logger
+        return cls.native_log
 
     @classmethod
-    def init_logger(
+    def configure(
         cls,
         *, 
         path: str, 
@@ -90,7 +90,7 @@ class log(Singleton):
         serialize: bool,
         has_to_delete_old: bool = False
     ) -> None:
-        """Init logger model instance depending on given arguments. 
+        """Init log model instance depending on given arguments. 
 
         Just a helpful method to recognize which arguments should be added with type hinting, and which is remain static.
         
