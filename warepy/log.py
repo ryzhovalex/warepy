@@ -32,7 +32,7 @@ class log(Singleton):
     critical = native_log.critical
 
     # Head catch decorator for final level of program with calling exit.
-    head_catch = native_log.catch(onerror=lambda _: print("WOW"))
+    head_catch = native_log.catch(onerror=lambda _: sys.exit(1))
 
     # Original catch decorator for feeling free at args setting.
     origin_catch = native_log.catch
