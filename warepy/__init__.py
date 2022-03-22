@@ -244,15 +244,15 @@ def extend_enum(*inherited_enums: type[Enum]):
 
 
 AnyEnum = TypeVar("AnyEnum", bound=Enum)
-def match_enum_containing_value(value: Any, *enums: type[AnyEnum]) -> type[AnyEnum]:
+def match_enum_containing_value(value: Any, *enum_classes: type[AnyEnum]) -> type[AnyEnum]:
     """Traverse through list of given enums and return first enum containing given value.
     
     Raise:
         ValueError:
             Given enums don't contain given value."""
-    for enum in enums:
-        if value in get_enum_values(enum):
-            return enum
+    for enum_class in enum_classes:
+        if value in get_enum_values(enum_class):
+            return enum_class
     raise ValueError(format_message("Given enums don't contain given value {}.", value))
 
 
