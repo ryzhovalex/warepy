@@ -10,6 +10,7 @@ class SingletonMeta(type):
     """Singleton metaclass for implementing singleton patterns. 
     Source: https://stackoverflow.com/questions/6760685/creating-a-singleton-in-python
 
+    TODO: Change usage example compliant to Singleton(metaclass=SingletonMeta) class.
     Usage:
     ```
     class MySingleInstanceClass(metaclass=Singleton): ...
