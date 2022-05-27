@@ -8,7 +8,6 @@ from functools import wraps
 
 import yaml
 
-from .log import log
 from .noconflict import makecls
 from .singleton import Singleton
 
@@ -19,7 +18,6 @@ __version__ = "0.6.1"
 YamlLoader = Literal["base", "safe", "full", "unsafe"]
 
 
-@log.catch
 def join_paths(*args) -> str:
     """Collect given paths and return summary joined absolute path.
     
@@ -39,19 +37,16 @@ def join_paths(*args) -> str:
     return summary_path
 
 
-@log.catch
 def dump_json_to_environ(environ_key: str, map_to_dump: Union[List, Dict, Tuple]) -> None:
     """Dump given map with converting to json to environment variable by given key."""
     os.environ[environ_key] = json.dumps(map_to_dump)
 
 
-@log.catch
 def load_json_from_environ(environ_key: str) -> Dict[str, Any]:
     """Load json with converting to Python's map object from environment variable by given key and return data dictionary."""
     return json.loads(os.environ[environ_key])
 
 
-@log.catch
 def save_yaml(file_path: str, data: dict) -> None:
     """Save given dict to yaml to file on given path.
     
@@ -63,7 +58,6 @@ def save_yaml(file_path: str, data: dict) -> None:
         yaml.dump(data=data, stream=file, allow_unicode=True)
 
 
-@log.catch
 def load_yaml(file_path: str, *, loader: YamlLoader = "safe") -> Dict[str, Any]:
     """Load yaml from file on given path and return Python dict.
     
@@ -92,7 +86,6 @@ def load_yaml(file_path: str, *, loader: YamlLoader = "safe") -> Dict[str, Any]:
         return yaml.load(file, Loader=yaml_loader)
 
 
-@log.catch
 def format_message(text: str, *args, no_arg_phrase: str = "None", enclosing_char: str = "`") -> str:
     """Construct message from given text with inserting given args to it and return resulting message.
     
@@ -141,13 +134,11 @@ def format_message(text: str, *args, no_arg_phrase: str = "None", enclosing_char
     return message
 
 
-@log.catch
 def get_next_dict_key(dictionary: dict) -> str:
     """Return next key in dictionary by using its iterator."""
     return next(iter(dictionary.keys()))
 
 
-@log.catch
 def normalize_db_uri(cpas_module_path: str, raw_db_uri: str) -> str:
     """Normalize given db (i.e. convert rel paths to abs and check for errors) uri and return it."""
     if ":memory:" in raw_db_uri:
