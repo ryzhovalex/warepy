@@ -3,6 +3,9 @@ from setuptools import setup, find_packages
 from warepy import __version__ as version
 
 
+with open("requirements.txt", "r") as file:
+    install_requires = [x.strip() for x in file.readlines()]
+
 setup(
     name="warepy",
     packages=find_packages(),
@@ -14,10 +17,7 @@ setup(
     author_email="thed4rkof@gmail.com",
     url="https://github.com/ryzhovalex/warepy",
     keywords=["toolkit", "python-core"],
-    install_requires=[
-        "pyyaml",
-        "loguru"
-    ],
+    install_requires=install_requires,
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
 
