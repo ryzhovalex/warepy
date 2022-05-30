@@ -1,5 +1,5 @@
 """Module with various tools."""
-__version__ = "0.7.0"
+__version__ = "0.7.1"
 
 import os
 import json
@@ -9,6 +9,9 @@ from typing import Any, List, Dict, Literal, TypeVar, Union, Tuple
 from functools import wraps
 
 import yaml
+
+from .singleton import Singleton
+from .noconflict import makecls
 
 
 # Yaml loaders types according to
